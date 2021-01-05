@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Parking</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/icon/css/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<script type="text/javascript" th:scr="@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/parking.js}"></script>
+    <script type="text/javascript" th:scr="@{/js/search.js}"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- menu top-->
+		<div class="row navbar navbar-expand-lg bg-dark navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    	<a class="nav-link" href="/parking/index"><i class="fas fa-home"></i> Trang chủ </a></li>
+                    <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" sec:authorize="isAuthenticated()">
+     						<span sec:authentication="name"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i>Hồ sơ</a> 
+                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="col-sm-5">
+                    <form class="input-group" th:action="@{/data/search}" method="get" id="formSearch">
+						<input type="text" class="form-control" placeholder="Tìm kiếm xe..." name="keyword" id="key">
+						<div class="input-group-append">
+							<button class="btn btn-success">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+					<div id = "mess" class="text-danger"></div>
+                </div>
+            </div>
+        </div><!-- end menu top -->
+        <!--  content -->
+        <div class="row">
+        	<!-- menu left -->
+        	<div class="col-md-2 col-sm-6 col-xs-12">
+        		<ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/parking/index"><i class="fas fa-tachometer-alt"></i> DashBoard</a></li>
+                    <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    		<i class="fas fa-user-friends"></i> Quản lý nhân viên
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/employee/current">
+                            	<i class="fas fa-list"></i> Danh sách nhân viên
+                            </a> 
+                        </div>
+                    </li>
+                     <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    		<i class="fas fa-user-friends"></i> Quản lý tài khoản
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/account/current">
+                            	<i class="fas fa-list"></i> Danh sách tài khoản
+                            </a> 
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-parking"></i> Quản lý bãi đỗ
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/park/add">
+                            	<i class="fas fa-plus"></i> Thêm bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/park/current">
+                            	<i class="fas fa-list"></i> Danh sách bãi đỗ
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-ticket-alt"></i> Quản lý vé
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/ticket/add">
+                            	<i class="fas fa-plus"></i> Thêm lọai vé
+                            </a>
+                            <a class="dropdown-item" href="/parking/ticket/current">
+                            	<i class="fas fa-list"></i> Danh sách loại vé
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-ticket-alt"></i> Quản lý vé tháng
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/register/add">
+                            	<i class="fas fa-plus"></i> Đăng ký vé tháng
+                            </a>
+                            <a class="dropdown-item" href="/parking/register/current">
+                            	<i class="fas fa-list"></i> Danh sách đăng ký
+                            </a> 
+                            <a class="dropdown-item" href="/parking/stamp/add">
+                            	<i class="far fa-money-bill-alt"></i> Mua tem vé tháng
+                            </a>
+                            <a class="dropdown-item" href="/parking/stamp/current">
+                            	<i class="fas fa-clipboard-list"></i> Danh sách mua tem
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="far fa-calendar-check"></i> Xe vào bãi
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/checkin/add">
+                            	<i class="fas fa-plus"></i> Vào bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkin/current">
+                            	<i class="fas fa-list"></i>Danh sách vào bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkout/add">
+                            	<i class="fas fa-plus"></i> Xe ra bãi
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkout/current">
+                            	<i class="fas fa-plus"></i> Danh sách ra khỏi bãi
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+        	</div><!-- end menu left-->
+        	<!-- content right-->
+        	<div class="col-md-10 col-sm-10 col-xs-12 my-3">
+        		<div class="col-sm-10 content-form">
+                    <form class="col-sm-12 mx-auto p-5" method="post" th:action="@{/parking/park}" th:object="${parking}" id="addParking">
+                        <div class="form-group row">
+                            <h2 class="text-success col-sm-12">Thêm bãi đỗ xe</h2>
+                            <div class="col-sm-7"></div>
+                        </div>
+
+                        <!-- MessageBox AddSuccess -->
+                        <div class="alert alert-success alert-dismissible"  th:if="${message}">
+							   <button type="button" class="close" data-dismiss="alert">&times;</button>
+							   Thêm bãi đỗ thành công
+						</div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Tên bãi đỗ<span class="text-danger">(*)</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="Nhập tên bãi đỗ" th:field="*{parkingName}" id="name">
+                                <div id="mess1" class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Nhập diện tích<span class="text-danger">(đơn vị(M2) *)</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="Nhập diện tích" th:field="*{area}" id="area">
+                                <div id="mess2" class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Số chỗ tối đa<span class="text-danger">(*)</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="Nhập số chỗ đỗ" th:field="*{slot}" id="slot">
+                                <div id="mess3" class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5"></div>
+                            <div class="col-sm-7">
+                                <button class="btn btn-primary" id="back" type="button">
+                                    <i class="fas fa-fast-backward"></i> Quay lại
+                                </button>
+                                <button class="btn btn-warning" id="reset" type="reset">
+                                    <i class="fas fa-sync-alt"></i> Tạo mới
+                                </button>
+                                <button class="btn btn btn-success" type="submit">
+                                    <i class="fas fa-plus"></i> Thêm bãi đỗ
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        	</div><!-- end content right-->
+        </div><!-- end content -->
+        </div>
+	</div>
+</body>
+</html>

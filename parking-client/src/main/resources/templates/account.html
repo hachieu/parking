@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Register</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/icon/css/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<script type="text/javascript" th:scr="@{/js/jquery-3.4.1.js}"></script>
+	<script type="text/javascript" th:src="@{/js/login.js}"></script>
+</head>
+<body>
+	<div class="container-fluid bg">
+		<div class="row justify-content-center">
+			<div class="col-md-4 col-sm-6 col-xs-12 row-container">
+				<form method="post" th:action="@{/account}" th:object="${user}" id="formLogin">
+					<h1>Đăng ký</h1>
+					<div class="alert alert-danger alert-dismissible" th:if="${param.exist}">
+						    <button type="button" class="close" data-dismiss="alert">&times;</button>
+						    Email đã đăng ký, vui lòng nhập email khác
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="text" class="form-control" placeholder="Nhập email" th:field = "*{active}" id = "username">
+						<div id="mess1" class="text-danger"></div>
+					</div>
+					<div class="form-group">
+						<label>Mật khẩu</label>
+						<input type="password" class="form-control" placeholder="Nhập mật khẩu" th:field = "*{password}" id = "password">
+						<div id="mess2" class="text-danger"></div>
+					</div>
+					<button type="submit" class="btn btn-success btn-block my-3">Đăng ký</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

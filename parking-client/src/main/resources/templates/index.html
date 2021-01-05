@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/icon/css/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<script type="text/javascript" th:scr="@{/js/jquery-3.4.1.js}"></script>
+	<script type="text/javascript" th:scr="@{/js/search.js}"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- menu top-->
+		<div class="row navbar navbar-expand-lg bg-dark navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    	<a class="nav-link" href="/parking/index"><i class="fas fa-home"></i> Trang chủ </a></li>
+                    <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" sec:authorize="isAuthenticated()">
+     						<span sec:authentication="name"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i>Hồ sơ</a> 
+                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="col-sm-5">
+                    <form class="input-group" th:action="@{/data/search}" method="get" id="formSearch">
+						<input type="text" class="form-control" placeholder="Tìm kiếm xe..." name="keyword" id="key">
+						<div class="input-group-append">
+							<button class="btn btn-success">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+					<div id = "mess" class="text-danger"></div>
+                </div>
+            </div>
+        </div><!-- end menu top -->
+        <!--  content -->
+        <div class="row">
+        	<!-- menu left -->
+        	<div class="col-md-2 col-sm-6 col-xs-12">
+        		<ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/parking/index"><i class="fas fa-tachometer-alt"></i> DashBoard</a></li>
+                    <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    		<i class="fas fa-user-friends"></i> Quản lý nhân viên
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/employee/current">
+                            	<i class="fas fa-list"></i> Danh sách nhân viên
+                            </a> 
+                        </div>
+                    </li>
+                     <li class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    		<i class="fas fa-user-friends"></i> Quản lý tài khoản
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/account/current">
+                            	<i class="fas fa-list"></i> Danh sách tài khoản
+                            </a> 
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-parking"></i> Quản lý bãi đỗ
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/park/add">
+                            	<i class="fas fa-plus"></i> Thêm bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/park/current">
+                            	<i class="fas fa-list"></i> Danh sách bãi đỗ
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-ticket-alt"></i> Quản lý vé
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/ticket/add">
+                            	<i class="fas fa-plus"></i> Thêm lọai vé
+                            </a>
+                            <a class="dropdown-item" href="/parking/ticket/current">
+                            	<i class="fas fa-list"></i> Danh sách loại vé
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-ticket-alt"></i> Quản lý vé tháng
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/register/add">
+                            	<i class="fas fa-plus"></i> Đăng ký vé tháng
+                            </a>
+                            <a class="dropdown-item" href="/parking/register/current">
+                            	<i class="fas fa-list"></i> Danh sách đăng ký
+                            </a> 
+                            <a class="dropdown-item" href="/parking/stamp/add">
+                            	<i class="far fa-money-bill-alt"></i> Mua tem vé tháng
+                            </a>
+                            <a class="dropdown-item" href="/parking/stamp/current">
+                            	<i class="fas fa-clipboard-list"></i> Danh sách mua tem
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="far fa-calendar-check"></i> Xe vào bãi
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/parking/checkin/add">
+                            	<i class="fas fa-plus"></i> Vào bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkin/current">
+                            	<i class="fas fa-list"></i>Danh sách vào bãi đỗ
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkout/add">
+                            	<i class="fas fa-plus"></i> Xe ra bãi
+                            </a>
+                            <a class="dropdown-item" href="/parking/checkout/current">
+                            	<i class="fas fa-plus"></i> Danh sách ra khỏi bãi
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+        	</div><!-- end menu left-->
+        	<!-- content right-->
+        	<div class="col-md-10 col-sm-10 col-xs-12 my-3">
+        		<div class="row d-flex box">
+        			<div class="col-sm-4 bg-info">Tổng số chỗ: 1000</div>
+        			<div class="col-sm-4 bg-warning">Đang đỗ: 1000</div>
+        			<div class="col-sm-4 bg-primary">Số chỗ trống: 0</div>
+        		</div>
+        		<div class="row">
+
+        				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.3391898134278!2d105.8220832143781!3d21.019109993484843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb4623fb1d3%3A0x10291e8bc5361d64!2sPEAKVIEW%20TOWER%2036%20HO%C3%80NG%20C%E1%BA%A6U!5e0!3m2!1svi!2s!4v1601522403156!5m2!1svi!2s" width="100%" height="430" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        		
+        		</div>
+        	</div><!-- end content right-->
+        </div><!-- end content -->
+	</div>
+</body>
+</html>

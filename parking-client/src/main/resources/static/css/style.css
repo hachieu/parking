@@ -1,0 +1,46 @@
+html,body{
+	width: 100%;
+	height: 100%;
+}
+
+.row-container{
+	border: solid 1px #cccccc;
+	border-radius: 20px;
+	margin-top: 20vh;
+	padding: 30px;
+	color: #FFFFFF;
+}
+
+.profile{
+	border: solid 1px #cccccc;
+	border-radius: 20px;
+	margin-top: 10vh;
+	padding: 30px;
+	color: #FFFFFF;
+}
+
+.bg{
+	background: url("../image/image.jpg") no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.box div{
+	height: 20vh;
+	line-height: 20vh;
+}
+
+.content-form{
+	width: 100%;
+	height: 85vh;
+	overflow-y:scroll;
+}
+
+::-webkit-scrollbar{
+	width: 0px;
+}
+::-webkit-scrollbar-thumb{
+	border-radius: 0px;
+	background: grey;
+}
