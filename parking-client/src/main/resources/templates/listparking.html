@@ -182,9 +182,7 @@
                                 <div class="modal-body">Bạn có chắc chắn muốn xóa không</div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                    <form method="GET" th:action="@{/parking/park/delete/}+${id}" id="formDelete">
-                                        <button class="btn btn-primary" type="submit">Xóa bỏ</button>
-                                    </form>
+                                    <button class="btn btn-primary" type="button" onclick = "deleteParking()" id = "btnDelete">Xóa bỏ</button>
                                 </div>
                             </div>
                         </div>

@@ -90,7 +90,21 @@ $(document).ready(function(){
     });
 });
 
-$(document).on("click", ".deleteparking", function() {
-	var parkid = $(this).data('id');
-	 $('#formDelete').attr('action', '/parking/park/delete/' + parkid);
+$(document).ready(function () {
+	
+	$('.deleteparking').click(function(){
+       	let parkid = $(this).data('id');
+		$('#btnDelete').attr('onclick', 'deleteParking('+parkid+')');
+    });
 });
+
+function deleteParking(parkId){
+   	$.ajax({
+	      url: '/parking/park/delete/'+parkId,
+	      type: "GET",
+	      success: function(response) {
+	         $(location).attr('href', '/parking/park/current');
+	      }
+    });
+
+}
